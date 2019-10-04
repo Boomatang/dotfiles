@@ -1,0 +1,1 @@
+alias start_fp_server="cd ~/code/github.com/apollographql/frontpage-server && npm run start"
