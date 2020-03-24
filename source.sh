@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
-source ~/code/github.com/Boomatang/dotfiles/alias/git
-source ~/code/github.com/Boomatang/dotfiles/alias/system.sh
-source ~/code/github.com/Boomatang/dotfiles/alias/program.sh
-source ~/code/github.com/Boomatang/dotfiles/alias/main_project.sh
-source ~/code/github.com/Boomatang/dotfiles/config/display.sh
+REPO_PATH="$HOME/code/github.com/Boomatang"
+
+source $REPO_PATH/dotfiles/alias/git
+source $REPO_PATH/dotfiles/alias/system.sh
+source $REPO_PATH/dotfiles/alias/program.sh
+source $REPO_PATH/dotfiles/alias/main_project.sh
+source $REPO_PATH/dotfiles/config/display.sh
 
 # Paths to parts of the code base
-source ~/code/github.com/Boomatang/dotfiles/paths/code.sh
+source $REPO_PATH/dotfiles/paths/code.sh
+
+source $REPO_PATH/dotfiles/tools/osd/include.sh
