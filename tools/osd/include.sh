@@ -5,22 +5,32 @@ else
    
     ocm_create()
     {
-        echo $note
+        echo "$note"
     }
 
     osd_is_cluster_ready()
     {
-        echo $note
+        echo "$note"
     }
 
     osd_setup_credentials()
     {
-        echo $note
+        echo "$note"
     }
 
     osd_get_credentials()
     {
-        echo $note
+        echo "$note"
+    }
+
+    osd_get_cluster_id()
+    {
+        echo "$note"
+    }
+
+    osd_delete_addon_rhoam()
+    {
+        echo "$note"
     }
 
     osd_setup()

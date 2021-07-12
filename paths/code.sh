@@ -11,5 +11,6 @@ export PATH=$PATH:/usr/bin/go/bin:$GOPATH/bin
 export OSD_INSTALLATION_DIR=$HOME/code/ocm
 export OSD_CLUSTER_NAME="jfitzpat"
 
-# SourceClear 
-export SC=$HOME/SourceClear/repos
+# VaraCode 
+export SC=$HOME/VeraCode/repos
+export SC_REPO_CONFIG=$HOME/VeraCode/config/repos.json

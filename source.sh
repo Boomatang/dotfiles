@@ -12,3 +12,5 @@ source $REPO_PATH/dotfiles/config/display.sh
 source $REPO_PATH/dotfiles/paths/code.sh
 
 source $REPO_PATH/dotfiles/tools/osd/include.sh
+source $REPO_PATH/dotfiles/tools/go/operator_sdk.sh
+# source $REPO_PATH/dotfiles/tools/go/functions.sh
