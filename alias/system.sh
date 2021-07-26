@@ -5,3 +5,6 @@ alias quit="exit"
 
 alias open="xdg-open"
 alias size="du -ch . | grep total"
+
+# alias used with python
+alias va="source venv/bin/activate"
