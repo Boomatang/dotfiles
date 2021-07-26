@@ -45,7 +45,7 @@ osd_get_credentials()
   CLUSTER_CONSOLE=$(echo $CLUSTER | jq '.console.url' | tr -d '\"')
   CLUSTER_LOGIN=$(echo $CLUSTER_CONSOLE |cut -d '.' -f 3,4,5,6,7 | cut -d '/' -f 1)
   echo "Console: $CLUSTER_CONSOLE"
-  echo "Console Login: https://oauth-openshift.apps.$CLUSTER_LOGIN/login/kube:admin?then=%2Foauth%2Fauthorize%3Fclient_id%3Dconsole%26idp%3Dkubeadmin%26redirect_uri%3Dhttps%253A%252F%252Fconsole-openshift-console.apps.$CLUSTER_LOGIN%252Fauth%252Fcallback%26response_type%3Dcode%26scope%3Duser%253Afull"
+  echo "Console Login: https://oauth-openshift.apps.$CLUSTER_LOGIN/login?then=%2Foauth%2Fauthorize%3Fclient_id%3Dconsole%26idp%3Dkubeadmin%26redirect_uri%3Dhttps%253A%252F%252Fconsole-openshift-console.apps.$CLUSTER_LOGIN%252Fauth%252Fcallback%26response_type%3Dcode%26scope%3Duser%253Afull"
   echo $CLUSTER_CREDS | jq
 }
 
