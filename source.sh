@@ -6,6 +6,9 @@ source $REPO_PATH/dotfiles/alias/git
 source $REPO_PATH/dotfiles/alias/system.sh
 source $REPO_PATH/dotfiles/alias/program.sh
 source $REPO_PATH/dotfiles/alias/main_project.sh
+source $REPO_PATH/dotfiles/alias/kitty.sh
+
+
 source $REPO_PATH/dotfiles/config/display.sh
 
 # Paths to parts of the code base
