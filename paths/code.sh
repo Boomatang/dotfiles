@@ -1,5 +1,9 @@
 export PATH=$PATH:$HOME/bin
 
+# Dotfiles
+export DOT_SCRIPTS=$REPO_PATH/dotfiles/scripts
+
+# git-grab
 export GRAB_PATH=~/code
 
 # GoLang set up
