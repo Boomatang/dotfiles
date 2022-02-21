@@ -77,3 +77,9 @@ osd_delete_addon_rhoam() {
   CLUSTER_ID=$(echo $CLUSTER | jq '.id' | tr -d '\"')
   ocm delete /api/clusters_mgmt/v1/clusters/$CLUSTER_ID/addons/managed-api-service
 }
+
+function bump_ocm_cluster {
+        NAME=$1; CLUSTER=$(ocm get clusters | jq '.items[] | select(.name == "'${NAME}'")');
+        DATE=$(date -v +1d +"%Y-%m-%dT%H:%M:%SZ");
+        echo "{\"expiration_timestamp\": \"$DATE\"}" | ocm patch /api/clusters_mgmt/v1/clusters/"$(echo $CLUSTER | jq '.id' -r)";
+}

@@ -14,6 +14,7 @@ export PATH=$PATH:/usr/bin/go/bin:$GOPATH/bin
 # OSD vars
 export OSD_INSTALLATION_DIR=$HOME/code/ocm
 export OSD_CLUSTER_NAME="jfitzpat"
+export KUBE_EDITOR="vim"
 
 # VaraCode 
 export SC=$HOME/VeraCode/repos
