@@ -18,10 +18,10 @@ else
         echo "$note"
     }
 
-    osd_get_credentials()
-    {
-        echo "$note"
-    }
+#    osd_get_credentials()
+#    {
+#        echo "$note"
+#    }
 
     osd_get_cluster_id()
     {

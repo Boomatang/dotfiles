@@ -1,5 +1,6 @@
 import sys
 
+
 def action():
     if len(sys.argv) == 1:
         print("")
@@ -11,5 +12,6 @@ def action():
 
     a = f" ({project} | {sys.argv[2]})"
     print(f" ({project} | {sys.argv[2]})")
+
 
 action()
