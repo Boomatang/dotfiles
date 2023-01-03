@@ -7,8 +7,8 @@ osd_is_cluster_ready()
     CLUSTER_NAME=$OSD_CLUSTER_NAME
   fi
 
-  until [[ $(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.display_name==$CLUSTER_NAME).state') = "ready" ]]; do
-    STATE=$(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.display_name==$CLUSTER_NAME).state')
+  until [[ $(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.name==$CLUSTER_NAME).state') = "ready" ]]; do
+    STATE=$(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.name==$CLUSTER_NAME).state')
     echo "Cluster is not yet ready. STATE: $STATE"
     sleep 30
   done
@@ -23,10 +23,10 @@ osd_setup_credentials()
     CLUSTER_NAME=$OSD_CLUSTER_NAME
   fi
 
-  CLUSTER_ID=$(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.display_name==$CLUSTER_NAME).id' | tr -d '\"')
+  CLUSTER_ID=$(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.name==$CLUSTER_NAME).id' | tr -d '\"')
   ocm get /api/clusters_mgmt/v1/clusters/$CLUSTER_ID/credentials | jq -r .kubeconfig > $KUBECONFIG
   echo "OSD config for $CLUSTER_NAME has been set to $KUBECONFIG"
-  CONSOLE=$(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.display_name==$CLUSTER_NAME).console.url' | tr -d '\"')
+  CONSOLE=$(ocm get /api/clusters_mgmt/v1/clusters | jq -r --arg CLUSTER_NAME "$CLUSTER_NAME" '.items[] | select(.name==$CLUSTER_NAME).console.url' | tr -d '\"')
   echo "Console: $CONSOLE"
   echo "Cluster credentials:"
   ocm get /api/clusters_mgmt/v1/clusters/$CLUSTER_ID/credentials | jq '.admin'
@@ -83,3 +83,34 @@ function bump_ocm_cluster {
         DATE=$(date -v +1d +"%Y-%m-%dT%H:%M:%SZ");
         echo "{\"expiration_timestamp\": \"$DATE\"}" | ocm patch /api/clusters_mgmt/v1/clusters/"$(echo $CLUSTER | jq '.id' -r)";
 }
+
+ocm_clusterstoragetrue()
+{
+oc patch rhmi rhoam -n redhat-rhoam-operator --type=merge -p '{"spec":{"useClusterStorage": "true" }}'
+}
+
+ocm_extend(){
+  # Extends expiration_timestamp of a cluster
+  ( set -e; set -o pipefail; # Fail early
+    CLUSTER_NAME=${1}
+    CLUSTER_ID=$( set -e; set -o pipefail; ocm get clusters --parameter search="display_name like '$CLUSTER_NAME'" | jq -r '.items[].id')
+    CLUSTER_CCS=$(ocm get "/api/clusters_mgmt/v1/clusters/${CLUSTER_ID}" | jq -r .ccs.enabled)
+    if [ $CLUSTER_CCS != 'true' ]; then
+      echo "This command should be used only with BYOC / CCS clusters"
+      exit 1
+    fi
+    echo "Existing timestamp is "
+    ocm get /api/clusters_mgmt/v1/clusters/"${CLUSTER_ID}" | jq -r .expiration_timestamp
+    echo -e "\nEnter new time stamp"
+    read NEW_DATE
+    echo "{\"expiration_timestamp\": \"$NEW_DATE\"}" | ocm patch /api/clusters_mgmt/v1/clusters/"$CLUSTER_ID"
+    if [ $? -eq 0 ]; then
+      echo "Cluster timestamp updated to:"
+      ocm get /api/clusters_mgmt/v1/clusters/"${CLUSTER_ID}" | jq -r .expiration_timestamp
+    else
+      echo "Cluster timestamp update FAILED"
+      exit 1
+    fi
+  )
+}
+

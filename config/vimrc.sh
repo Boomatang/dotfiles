@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-colo delek
-
 filetype plugin indent on
 syntax on
 

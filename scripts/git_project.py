@@ -8,10 +8,13 @@ def action():
 
     path = sys.argv[1]
     split = path.split(":")
-    project = split[1].removesuffix(".git")
+    if len(split) < 2:
+        print(f" ({sys.argv[1]})")
+    else:
+        project = split[1].removesuffix(".git")
 
-    a = f" ({project} | {sys.argv[2]})"
-    print(f" ({project} | {sys.argv[2]})")
+        a = f" ({project} | {sys.argv[2]})"
+        print(f" ({project} | {sys.argv[2]})")
 
 
 action()

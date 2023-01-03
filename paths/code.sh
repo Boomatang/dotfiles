@@ -1,4 +1,4 @@
-export PATH=$PATH:$HOME/bin
+export PATH=$PATH:$HOME/bin:$HOME/.poetry/bin
 
 # Dotfiles
 export DOT_SCRIPTS=$REPO_PATH/dotfiles/scripts
