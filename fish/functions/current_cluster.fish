@@ -14,6 +14,10 @@ function current_cluster
     set prefix $path[-2]/$path[-1]
   end
 
+  if test ! -e $kubeconfig
+    return 1
+  end
+
   set -l context (yq '.current-context' $kubeconfig)
   set -l query '.contexts.[] | select(.name == "'$context'") | .context.cluster'
   set -l cluster (yq "$query" $kubeconfig)
@@ -30,9 +34,12 @@ function current_cluster
     set -l checked (yq "$checked_query" $cluster_ping)
     set -l connected (yq "$connected_query" $cluster_ping)
 
-    set -l cs (date -d "$checked" "+%s")
-    set -l ts (date +%s)
-    set -l diff (math $ts - $cs)
+    set -l diff 0
+    if test  $checked != "null"
+      set -l cs (date -d "$checked" "+%s")
+      set -l ts (date +%s)
+      set diff (math $ts - $cs)
+    end
 
     set color $unknown
     if test $diff -lt $delay

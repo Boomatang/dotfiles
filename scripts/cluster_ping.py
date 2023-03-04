@@ -22,10 +22,18 @@ with open(kubeconfig) as kcf:
 if not kc["current-context"] == cluster:
     exit(3)
 
+if kc['contexts'] is None:
+    exit()
+
+c_cluster = None
 for c in kc['contexts']:
     if c['name'] == cluster:
         c_cluster = c['context']['cluster']
         break
+
+if c_cluster is None:
+    exit()
+
 
 for c in kc['clusters']:
     if c['name'] == c_cluster:
