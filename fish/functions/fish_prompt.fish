@@ -16,6 +16,9 @@ function fish_prompt --description 'Write out the prompt'
     and set -g __fish_git_prompt_char_dirtystate \U1F4a9
     set -g __fish_git_prompt_char_untrackedfiles "?"
 
+    string match -qi "*.utf-8" -- $LANG $LC_CTYPE $LC_ALL
+    and set -g __fish_git_prompt_char_untrackedfiles \U2754
+
     set -l lgb (set_color brgreen) [ (set_color normal)
     set -l rgb (set_color brgreen) ] (set_color normal)
     
