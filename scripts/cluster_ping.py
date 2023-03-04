@@ -29,6 +29,7 @@ c_cluster = None
 for c in kc['contexts']:
     if c['name'] == cluster:
         c_cluster = c['context']['cluster']
+        user = c['context']['user']
         break
 
 if c_cluster is None:
@@ -41,6 +42,30 @@ for c in kc['clusters']:
 
 if len(server) == 0:
     exit(4)
+
+for u in kc['users']:
+    if u['name'] == user:
+        if not u['user']:
+            data_file = Path(tempfile.gettempdir(), "cluster_ping.yaml")
+
+            if not data_file.exists():
+                data = {}
+            else:
+                with open(data_file) as df:
+                    data = yaml.safe_load(df)
+
+            if not str(kubeconfig) in data:
+                data.setdefault(str(kubeconfig), {})
+
+            data[str(kubeconfig)][cluster] = {
+                    "connected": False,
+                    "checked": str(datetime.now())
+                    }
+
+            with open(data_file, "w") as df:
+                df.write(yaml.dump(data))
+
+            exit()
 
 env = os.environ.copy()
 env["KUBECONFIG"] = kubeconfig
