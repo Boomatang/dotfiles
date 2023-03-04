@@ -38,6 +38,15 @@ function fish_prompt --description 'Write out the prompt'
         set prompt_status $status_color "[" $last_status "]" $normal
     end
 
-    echo -s $time_label ' ' $lgb $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal $rgb ' ' $prompt_status
+    set -l prompt $time_label ' ' $lgb $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal $rgb ' ' $prompt_status
+    
+
+    if test $FISH_USER_CLUSTER_CHECK -eq 1
+      set value $lgb (current_cluster) $rgb
+      set prompt $prompt $value
+    end
+
+
+    echo -s $prompt
     echo -n -s $status_color $suffix ' ' $normal
 end
