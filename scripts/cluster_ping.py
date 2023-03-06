@@ -3,6 +3,7 @@ import os
 import yaml
 import subprocess
 import tempfile
+import psutil
 from datetime import datetime
 from pathlib import Path
 
@@ -15,6 +16,17 @@ cluster = sys.argv[2]
 
 if not kubeconfig.exists() and not kubeconfig.is_file():
     exit(2)
+
+
+count = 0
+for process in psutil.process_iter():
+    if process.name().startswith("python"):
+        cmd = process.cmdline()
+        if {str(kubeconfig), cluster} <= set(cmd):
+            count += 1
+
+        if count >= 2:
+            exit()
 
 with open(kubeconfig) as kcf:
     kc = yaml.safe_load(kcf)
