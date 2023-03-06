@@ -5,11 +5,11 @@ if status is-interactive
     set DOTFILES $HOME/code/github.com/Boomatang/dotfiles
     set DOT_SCRIPTS $DOTFILES/scripts
 
-    set GOPATH $HOME/go
-    set GOSRC $GOPATH/src
-    set PATH $PATH /usr/bin/go/bin $GOPATH/bin
-    set PATH $PATH $HOME/bin $HOME/.poetry/bin
-    set PATH $PATH $HOME/.local/bin
+    set -x GOPATH $HOME/go
+    set -x GOSRC $GOPATH/src
+    set -x PATH $PATH /usr/bin/go/bin $GOPATH/bin /usr/local/go/bin
+    set -x PATH $PATH $HOME/bin $HOME/.poetry/bin
+    set -x PATH $PATH $HOME/.local/bin
 
     set KUBE_EDITOR vim
 
