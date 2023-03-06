@@ -19,7 +19,7 @@ if not kubeconfig.exists() and not kubeconfig.is_file():
 with open(kubeconfig) as kcf:
     kc = yaml.safe_load(kcf)
 
-if not kc["current-context"] == cluster:
+if kc is None or not kc["current-context"] == cluster:
     exit(3)
 
 if kc['contexts'] is None:
