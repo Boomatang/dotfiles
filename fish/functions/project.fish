@@ -1,6 +1,6 @@
 function project
   
   cd ~/go/src/github.com/integr8ly/integreatly-operator
-  source .env
+  source .env.fish
 
 end

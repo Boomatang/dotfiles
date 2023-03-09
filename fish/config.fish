@@ -5,6 +5,8 @@ if status is-interactive
     set DOTFILES $HOME/code/github.com/Boomatang/dotfiles
     set DOT_SCRIPTS $DOTFILES/scripts
 
+    set -x GRAB_PATH $HOME/code
+
     set -x GOPATH $HOME/go
     set -x GOSRC $GOPATH/src
     set -x PATH $PATH /usr/bin/go/bin $GOPATH/bin /usr/local/go/bin

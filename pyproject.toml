@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "dotfiles"
+version = "0.1.0"
+description = ""
+authors = ["Jim Fitzpatrick <jfitzpat@redhat.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+PyYAML = "^6.0"
+psutil = "^5.9.4"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+cluster_ping = 'dotfiles.clusterPing:action'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

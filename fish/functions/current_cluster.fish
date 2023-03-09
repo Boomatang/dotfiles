@@ -1,5 +1,5 @@
 function current_cluster
-  set -l delay 120
+  set -l delay 300
 
   set -l active (set_color magenta)
   set -l inactive (set_color black)
@@ -24,7 +24,7 @@ function current_cluster
 
   set -l cluster_ping /tmp/cluster_ping.yaml
 
-  command python $DOT_SCRIPTS/cluster_ping.py $kubeconfig $context &
+  command cluster_ping &
 
   if test -e $cluster_ping
     set -l base '."'$kubeconfig'"."'$context'"'
