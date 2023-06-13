@@ -22,17 +22,17 @@ function current_cluster
   set -l query '.contexts.[] | select(.name == "'$context'") | .context.cluster'
   set -l cluster (yq "$query" $kubeconfig)
 
-  set -l cluster_ping /tmp/cluster_ping.yaml
+  set -l cluster_ping_file /tmp/cluster_ping.yaml
 
-  command cluster_ping &
+  command cluster_ping $kubeconfig $context &
 
-  if test -e $cluster_ping
+  if test -e $cluster_ping_file
     set -l base '."'$kubeconfig'"."'$context'"'
     set -l checked_query $base'.checked'
     set -l connected_query $base'.connected'
 
-    set -l checked (yq "$checked_query" $cluster_ping)
-    set -l connected (yq "$connected_query" $cluster_ping)
+    set -l checked (yq "$checked_query" $cluster_ping_file)
+    set -l connected (yq "$connected_query" $cluster_ping_file)
 
     set -l diff 0
     if test  $checked != "null"

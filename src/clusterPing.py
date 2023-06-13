@@ -7,6 +7,7 @@ import psutil
 from datetime import datetime
 from pathlib import Path
 
+
 def action():
     if len(sys.argv) != 3:
         exit(1)
@@ -16,7 +17,6 @@ def action():
 
     if not kubeconfig.exists() and not kubeconfig.is_file():
         exit(2)
-
 
     count = 0
     for process in psutil.process_iter():
@@ -38,19 +38,17 @@ def action():
         exit()
 
     c_cluster = None
+    user = None
     for c in kc['contexts']:
         if c['name'] == cluster:
             c_cluster = c['context']['cluster']
             user = c['context']['user']
             break
 
-    if c_cluster is None:
+    if c_cluster is None or user is None:
         exit()
 
-
-    for c in kc['clusters']:
-        if c['name'] == c_cluster:
-            server = c['cluster']['server']
+    server = [c['cluster']['server'] for c in kc['clusters'] if c['name'] == c_cluster][0]
 
     if len(server) == 0:
         exit(4)
@@ -80,13 +78,12 @@ def action():
                 exit()
 
     env = os.environ.copy()
-    env["KUBECONFIG"] = kubeconfig
+    env["KUBECONFIG"] = str(kubeconfig)
     connected = True
 
     resp = subprocess.run(["kubectl", "version", "-o", "yaml"], capture_output=True, env=env)
     if len(resp.stderr) != 0:
         connected = False
-
 
     data_file = Path(tempfile.gettempdir(), "cluster_ping.yaml")
 
@@ -106,6 +103,7 @@ def action():
 
     with open(data_file, "w") as df:
         df.write(yaml.dump(data))
+
 
 if __name__ == "__main__":
     action()
