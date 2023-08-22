@@ -31,10 +31,10 @@ def action():
     with open(kubeconfig) as kcf:
         kc = yaml.safe_load(kcf)
 
-    if kc is None or not kc["current-context"] == cluster:
+    if kc is None or not kc.get("current-context", False) == cluster:
         exit(3)
 
-    if kc['contexts'] is None:
+    if kc.get('contexts', None) is None:
         exit()
 
     c_cluster = None

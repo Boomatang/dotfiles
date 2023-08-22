@@ -1,4 +1,4 @@
-alias ocm_create="ocm post /api/clusters_mgmt/v1/clusters --body=$OSD_INSTALLATION_DIR/cluster.json"
+# alias ocm_create="ocm post /api/clusters_mgmt/v1/clusters --body=$OSD_INSTALLATION_DIR/cluster.json"
 
 osd_is_cluster_ready()
 {
@@ -58,6 +58,7 @@ osd_setup()
 
 osd_get_cluster_id()
 {
+
   CLUSTER_NAME=${1}
   if [ $# -eq 0 ]; then
     CLUSTER_NAME=$OSD_CLUSTER_NAME
