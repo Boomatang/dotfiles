@@ -7,8 +7,11 @@ def action():
 
     path = sys.argv[1]
     split = path.split(":")
-    project = split[1].removesuffix(".git")
-
+    try:
+        project = split[1].removesuffix(".git")
+    except AttributeError:
+        if split[1].endswith(".git"):
+            project = split[1][:-4]
     a = f" ({project} | {sys.argv[2]})"
     print(f" ({project} | {sys.argv[2]})")
 

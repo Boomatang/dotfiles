@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-colo delek
+colo default
 
 filetype plugin indent on
 syntax on
