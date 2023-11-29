@@ -1,3 +1,3 @@
 function icat
-  kitty +kitten icat
+  kitty +kitten icat $argv
 end
