@@ -1,7 +1,12 @@
 function limitador
     
   if test "$argv[1]" = "-w"
-      open https://github.com/kuadrant/limitador
+      open https://github.com/kuadrant/limitador/pulls/Boomatang
+      return
+  end
+
+  if test "$argv[1]" = "-p"
+      open https://github.com/kuadrant/limitador/pulls/Boomatang
       return
   end
 
