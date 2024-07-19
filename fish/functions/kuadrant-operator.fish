@@ -12,7 +12,9 @@ function kuadrant-operator
       return
   end
     
-  cd $HOME/code/github.com/Kuadrant/kuadrant-operator
+  cd $GRAB_PATH/github.com/Kuadrant/kuadrant-operator
   set -g ACK_GINKGO_DEPRECATIONS 2.11.0
-    
+  set -gx CONTAINER_ENGINE podman
+
+  set_goroot
 end

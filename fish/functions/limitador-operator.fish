@@ -11,5 +11,7 @@ function limitador-operator
   end
    
   cd $HOME/code/github.com/Kuadrant/limitador-operator
+
+  set_goroot
     
 end

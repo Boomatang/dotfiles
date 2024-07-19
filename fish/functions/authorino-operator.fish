@@ -11,6 +11,8 @@ function authorino-operator
       return
   end
    
-  cd $HOME/code/github.com/Kuadrant/authorino-operator
+  cd $GRAB_PATH/github.com/Kuadrant/authorino-operator
+
+  set_goroot
     
 end

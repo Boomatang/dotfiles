@@ -11,5 +11,7 @@ function authorino
   end
 
   cd $HOME/code/github.com/Kuadrant/authorino
+
+  set_goroot
     
 end
