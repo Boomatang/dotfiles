@@ -25,7 +25,7 @@ if status is-interactive
 
     alias gs "git status"
     alias ga "git add"
-    alias gc "git commit"
+    alias gc "git commit -s"
     alias gb "git branch"
     alias gbc "git checkout"
     alias gd "git difftool --no-symlinks --dir-diff"

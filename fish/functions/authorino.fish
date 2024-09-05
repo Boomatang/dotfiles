@@ -10,7 +10,7 @@ function authorino
       return
   end
 
-  cd $HOME/code/github.com/Kuadrant/authorino
+  cd $GRAB_PATH/github.com/Kuadrant/authorino
 
   set_goroot
     

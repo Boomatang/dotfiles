@@ -21,7 +21,6 @@ function fish_prompt --description 'Write out the prompt'
 
     set -l lgb (set_color brgreen) [ (set_color normal)
     set -l rgb (set_color brgreen) ] (set_color normal)
-    
     set -l d (set_color brred)(date "+%R")(set_color normal)
     # set -l time_label (set_color brgreen) [ (set_color normal)$d(set_color brgreen)](set_color normal)
     set -l time_label $lgb $d $rgb
@@ -42,7 +41,6 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     set -l prompt $time_label ' ' $lgb $cwd_color (prompt_pwd) $vcs_color (fish_vcs_prompt) $normal $rgb 
-    
 
     if test $FISH_USER_CLUSTER_CHECK -eq 1
       set -l cc (current_cluster)
