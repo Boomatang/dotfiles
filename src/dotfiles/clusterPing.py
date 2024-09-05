@@ -1,12 +1,26 @@
+import argparse
 import os
 import subprocess
-import sys
 import tempfile
 from datetime import datetime
 from pathlib import Path
 
 import psutil
 import yaml
+
+
+def setup_args():
+    parser = argparse.ArgumentParser(description='Check if current kude user can ping the current cluster')
+    parser.add_argument('kubeconfig', help='path to kubeconfig file')
+    parser.add_argument('cluster', help='name of cluster to ping')
+    args = parser.parse_args()
+
+    kubeconfig = Path(args.kubeconfig)
+    if not kubeconfig.exists() and not kubeconfig.is_file():
+        # kube config file does not exist
+        exit(2)
+
+    return kubeconfig, args.cluster
 
 
 def can_connect(kubeconfig):
@@ -40,16 +54,6 @@ def write_data_file(kubeconfig, cluster, connected):
 
     with open(data_file, "w") as df:
         df.write(yaml.dump(data))
-
-
-def setup_args():
-    if len(sys.argv) != 3:
-        exit(1)
-    kubeconfig = Path(sys.argv[1])
-    if not kubeconfig.exists() and not kubeconfig.is_file():
-        exit(2)
-
-    return kubeconfig, sys.argv[2]
 
 
 def exit_if_running(kubeconfig: str, cluster: str):
