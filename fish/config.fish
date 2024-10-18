@@ -4,6 +4,8 @@ set FISH_USER_CLUSTER_CHECK 1
 set DOTFILES $HOME/code/github.com/Boomatang/dotfiles
 set DOT_SCRIPTS $DOTFILES/scripts
 
+set -g fish_key_bindings fish_vi_key_bindings
+
 set -gx GRAB_PATH $HOME/source
 
 set -gx GOPATH $HOME/go
