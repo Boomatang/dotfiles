@@ -8,11 +8,7 @@ set -g fish_key_bindings fish_vi_key_bindings
 
 set -gx GRAB_PATH $HOME/source
 
-set -gx GOPATH $HOME/go
-set -gx GOSRC $GOPATH/src
-set -gx GOROOT $HOME/sdk/go1.21.10
-set -gx PATH $PATH $GOROOT/bin
-set -gx PATH $PATH $GOPATH/bin /usr/local/go/bin
+set -gx PATH $PATH  /usr/local/go/bin
 set -gx PATH $PATH $HOME/bin $HOME/.poetry/bin
 set -gx PATH $PATH $HOME/.local/bin
 set -gx PATH $PATH $HOME/.cargo/bin
@@ -31,6 +27,8 @@ if status is-interactive
     alias gb "git branch"
     alias gbc "git checkout"
     alias gd "git difftool --no-symlinks --dir-diff"
+
+    alias p 'nvim -c "set cole=1" -c "set filetype=markdown" -c "set runtimepath^=~/.config/nvim/lua/plugins/obsidian.lua" -c "ObsidianNew" '
     # Commands to run in interactive sessions can go here
 end
 

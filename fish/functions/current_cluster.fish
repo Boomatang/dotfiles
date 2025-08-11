@@ -1,4 +1,6 @@
+# Defined via `source`
 function current_cluster
+
   set -l delay 300
 
   set -l active (set_color magenta)
@@ -22,31 +24,18 @@ function current_cluster
   set -l query '.contexts.[] | select(.name == "'$context'") | .context.cluster'
   set -l cluster (yq "$query" $kubeconfig)
 
-  set -l cluster_ping_file /tmp/cluster_ping.yaml
+  command cluster_ping check $kubeconfig $context &
 
-  command cluster_ping $kubeconfig $context &
+  set -l result (cluster_ping validate $kubeconfig $context $delay)
 
-  if test -e $cluster_ping_file
-    set -l base '."'$kubeconfig'"."'$context'"'
-    set -l checked_query $base'.checked'
-    set -l connected_query $base'.connected'
-
-    set -l checked (yq "$checked_query" $cluster_ping_file)
-    set -l connected (yq "$connected_query" $cluster_ping_file)
-
-    set -l diff 0
-    if test  $checked != "null"
-      set -l cs (date -d "$checked" "+%s")
-      set -l ts (date +%s)
-      set diff (math $ts - $cs)
-    end
-
-    set color $unknown
-    if test $diff -lt $delay
-      set color $inactive
-      if test $connected = "true"
-        set color $active
-      end
+  set -l result_list (string split ' ' $result)
+  echo $result_list[1]
+  echo $result_list[2]
+  set color $unknown
+  if test $result_list[2] = "recent=true"
+    set color $inactive
+    if test $result_list[1] = "connected=true"
+      set color $active
     end
   end
 

@@ -10,5 +10,4 @@ function policy-machinery
     
   cd $GRAB_PATH/github.com/Kuadrant/policy-machinery
 
-  set_goroot
 end

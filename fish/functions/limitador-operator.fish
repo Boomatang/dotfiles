@@ -10,8 +10,11 @@ function limitador-operator
       return
   end
    
-  cd $HOME/code/github.com/Kuadrant/limitador-operator
+  cd $GRAB_PATH/github.com/Kuadrant/limitador-operator
 
-  set_goroot
+  if test "$argv[1]" = "-s"
+      set_goroot
+      return
+  end
     
 end

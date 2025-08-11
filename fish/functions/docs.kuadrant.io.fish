@@ -10,6 +10,6 @@ function docs.kuadrant.io
       return
   end
 
-  cd $HOME/code/github.com/Kuadrant/docs.kuadrant.io
+  cd $GRAB_PATH/github.com/Kuadrant/docs.kuadrant.io
     
 end
