@@ -31,7 +31,7 @@ function current_cluster
     set -l checked_query $base'.checked'
     set -l connected_query $base'.connected'
 
-    set -l checked (yq "$checked_query" $cluster_ping_file)
+    et -l checked (yq "$checked_query" $cluster_ping_file)
     set -l connected (yq "$connected_query" $cluster_ping_file)
 
     set -l diff 0
